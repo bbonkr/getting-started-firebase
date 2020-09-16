@@ -1,0 +1,20 @@
+{
+  "name": "getting-started-firebase",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bbonkr/getting-started-firebase.git"
+  },
+  "keywords": [],
+  "author": "Pon Cheol Ku <dev@bbon.kr> (http://bbon.kr)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bbonkr/getting-started-firebase/issues"
+  },
+  "homepage": "https://github.com/bbonkr/getting-started-firebase#readme"
+}
