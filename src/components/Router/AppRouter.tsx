@@ -10,9 +10,10 @@ import { Navigation } from '@src/components/Navigation';
 
 interface AppRouterProps {
     isLoggedIn: boolean;
+    user?: firebase.User;
 }
 
-export const AppRouter = ({ isLoggedIn }: AppRouterProps) => {
+export const AppRouter = ({ isLoggedIn, user }: AppRouterProps) => {
     return (
         <Router>
             {isLoggedIn && <Navigation />}
@@ -20,7 +21,7 @@ export const AppRouter = ({ isLoggedIn }: AppRouterProps) => {
                 {isLoggedIn ? (
                     <React.Fragment>
                         <Route exact path="/">
-                            <Home />
+                            <Home user={user} />
                         </Route>
                         <Route exact path="/profile">
                             <Profile />

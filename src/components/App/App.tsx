@@ -5,18 +5,24 @@ import { Navigation } from '@src/components/Navigation';
 
 export const App = () => {
     const [isInitialized, setIsInitialized] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+    const [user, setUser] = useState<firebase.User>();
 
     useEffect(() => {
         authService.onAuthStateChanged((user) => {
-            setIsLoggedIn((prevState) => user !== null);
+            setUser(user ?? undefined);
             setIsInitialized((prevState) => true);
         });
     }, []);
 
+    if (!isInitialized) {
+        return <div>Initializing ...</div>;
+    }
+
     return (
         <div>
-            {isInitialized && <AppRouter isLoggedIn={isLoggedIn} />}
+            {isInitialized && (
+                <AppRouter isLoggedIn={Boolean(user)} user={user} />
+            )}
             <footer>&copy; Hello {new Date().getFullYear()}</footer>
         </div>
     );
