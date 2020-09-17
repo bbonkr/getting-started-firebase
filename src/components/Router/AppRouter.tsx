@@ -7,16 +7,22 @@ import {
 } from 'react-router-dom';
 import { Auth, Home, Profile } from '@src/routes';
 import { Navigation } from '@src/components/Navigation';
+import { User } from '@src/interfaces';
 
 interface AppRouterProps {
     isLoggedIn: boolean;
-    user?: firebase.User;
+    user?: User;
+    onUpdateProfile?: () => void;
 }
 
-export const AppRouter = ({ isLoggedIn, user }: AppRouterProps) => {
+export const AppRouter = ({
+    isLoggedIn,
+    user,
+    onUpdateProfile,
+}: AppRouterProps) => {
     return (
         <Router>
-            {isLoggedIn && <Navigation />}
+            {isLoggedIn && <Navigation user={user} />}
             <Switch>
                 {isLoggedIn ? (
                     <React.Fragment>
@@ -24,7 +30,10 @@ export const AppRouter = ({ isLoggedIn, user }: AppRouterProps) => {
                             <Home user={user} />
                         </Route>
                         <Route exact path="/profile">
-                            <Profile />
+                            <Profile
+                                user={user}
+                                onUpdateProfile={onUpdateProfile}
+                            />
                         </Route>
                     </React.Fragment>
                 ) : (

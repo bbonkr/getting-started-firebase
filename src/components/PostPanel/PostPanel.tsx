@@ -89,6 +89,17 @@ export const PostPanel = ({
                         </small>
                     </p>
                     <p>{record.text}</p>
+                    <div>
+                        {record.attachments &&
+                            record.attachments.length > 0 &&
+                            record.attachments.map((attachment) => {
+                                return (
+                                    <div>
+                                        <img src={attachment} width={50} />
+                                    </div>
+                                );
+                            })}
+                    </div>
                     {isOwner && (
                         <div>
                             <button onClick={handleClickDelete}>Delete</button>

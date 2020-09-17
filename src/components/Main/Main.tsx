@@ -1,27 +1,16 @@
-import { authService, dbService } from '@src/config';
-import { Post } from '@src/interfaces';
 import React, { useEffect, useState } from 'react';
+
+import { dbService, storageService } from '@src/config';
+import { Post, User } from '@src/interfaces';
 import { PostPanel } from '../PostPanel';
+import { WritePostForm } from '../WritePostForm';
 
 interface MainProps {
-    user?: firebase.User;
-}
-
-interface PostValue {
-    text: string;
-}
-
-interface PostFormState {
-    value: PostValue;
+    user?: User;
 }
 
 export const Main = ({ user }: MainProps) => {
     const [posts, setPosts] = useState<Post[]>([]);
-    const [formState, setFormState] = useState<PostFormState>({
-        value: {
-            text: '',
-        },
-    });
 
     const getPosts = async () => {
         const results = await dbService.collection('posts').get();
@@ -37,46 +26,18 @@ export const Main = ({ user }: MainProps) => {
         });
     };
 
-    const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-        event.persist();
-
-        const {
-            target: { name, value },
-        } = event;
-
-        setFormState((prevState) => ({
-            ...prevState,
-            value: {
-                ...prevState.value,
-                [name]: value,
-            },
-        }));
-    };
-
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-
-        if (formState.value.text) {
-            const newPost: Post = {
-                id: '',
-                text: formState.value.text,
-                createdAt: Date.now(),
-                createdBy: user?.uid ?? '',
-            };
-            await dbService.collection('posts').add(newPost);
-
-            setFormState({
-                value: {
-                    text: '',
-                },
-            });
-        }
-    };
-
     const handleDeletePost = async (record: Post) => {
         const result = window.confirm('Are you sure delete this post?');
         if (result) {
             await dbService.collection('posts').doc(record.id).delete();
+            if (record.attachments && record.attachments.length > 0) {
+                await Promise.all(
+                    await record.attachments.map(async (attachment) => {
+                        await storageService.refFromURL(attachment).delete();
+                        return true;
+                    }),
+                );
+            }
 
             setPosts((prevState) => {
                 const index = prevState.findIndex((x) => x.id === record.id);
@@ -138,19 +99,7 @@ export const Main = ({ user }: MainProps) => {
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    name="text"
-                    placeholder="Say something"
-                    required
-                    maxLength={120}
-                    value={formState.value.text}
-                    onChange={handleChangeInput}
-                />
-                <button type="submit">Post</button>
-            </form>
-
+            <WritePostForm user={user} />
             <div>
                 {posts
                     .sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1))

@@ -1,8 +1,9 @@
 import React from 'react';
 import { Main } from '@src/components/Main';
+import { User } from '@src/interfaces';
 
 interface HomeProps {
-    user?: firebase.User;
+    user?: User;
 }
 
 export const Home = ({ user }: HomeProps) => {
