@@ -21,8 +21,7 @@ export const AppRouter = ({
     onUpdateProfile,
 }: AppRouterProps) => {
     return (
-        <Router>
-            {isLoggedIn && <Navigation user={user} />}
+        <div className="content-wrapper">
             <Switch>
                 {isLoggedIn ? (
                     <React.Fragment>
@@ -43,6 +42,6 @@ export const AppRouter = ({
                 )}
                 <Redirect from="*" to="/" />
             </Switch>
-        </Router>
+        </div>
     );
 };

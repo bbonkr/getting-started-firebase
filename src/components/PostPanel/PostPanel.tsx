@@ -94,7 +94,7 @@ export const PostPanel = ({
                             record.attachments.length > 0 &&
                             record.attachments.map((attachment) => {
                                 return (
-                                    <div>
+                                    <div key={attachment}>
                                         <img src={attachment} width={50} />
                                     </div>
                                 );

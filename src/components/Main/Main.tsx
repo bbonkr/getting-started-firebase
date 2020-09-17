@@ -98,7 +98,7 @@ export const Main = ({ user }: MainProps) => {
     }, []);
 
     return (
-        <div>
+        <div className="d-flex flex-column justify-content-center align-items-center mt-10">
             <WritePostForm user={user} />
             <div>
                 {posts

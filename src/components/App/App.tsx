@@ -2,6 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { AppRouter } from '@src/components/Router';
 import { authService } from '@src/config';
 import { User } from '@src/interfaces';
+import halfmoon from 'halfmoon';
+
+import 'halfmoon/css/halfmoon-variables.min.css';
+import { HashRouter as Router } from 'react-router-dom';
+import { Navigation } from '../Navigation';
 
 export const App = () => {
     const [isInitialized, setIsInitialized] = useState(false);
@@ -48,6 +53,8 @@ export const App = () => {
             setIsInitialized((prevState) => true);
         });
 
+        halfmoon.onDOMContentLoaded();
+
         return () => {
             unsubscription();
         };
@@ -58,15 +65,23 @@ export const App = () => {
     }
 
     return (
-        <div>
-            {isInitialized && (
-                <AppRouter
-                    isLoggedIn={Boolean(user)}
-                    user={user ?? undefined}
-                    onUpdateProfile={handleUpdateProfile}
-                />
-            )}
-            <footer>&copy; Hello {new Date().getFullYear()}</footer>
-        </div>
+        <Router>
+            <div className="page-wrapper with-navbar with-navbar-fixed-bottom">
+                {Boolean(user) && <Navigation user={user} />}
+                <div className="content-wrapper">
+                    {isInitialized && (
+                        <AppRouter
+                            isLoggedIn={Boolean(user)}
+                            user={user ?? undefined}
+                            onUpdateProfile={handleUpdateProfile}
+                        />
+                    )}
+                </div>
+
+                <nav className="navbar navbar-fixed-bottom">
+                    <footer>&copy; Hello {new Date().getFullYear()}</footer>
+                </nav>
+            </div>
+        </Router>
     );
 };

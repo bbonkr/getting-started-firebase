@@ -2,6 +2,7 @@ import { dbService, storageService } from '@src/config';
 import { Attachment, Post, User } from '@src/interfaces';
 import React, { useState } from 'react';
 import { v4 as uuidV4 } from 'uuid';
+import { FaTrash } from 'react-icons/fa';
 
 interface PostValue {
     text: string;
@@ -23,7 +24,9 @@ export const WritePostForm = ({ user }: WritePostFormProps) => {
     });
     const [attachments, setAttachments] = useState<Attachment[]>([]);
 
-    const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChangeInput = (
+        event: React.ChangeEvent<HTMLTextAreaElement>,
+    ) => {
         event.persist();
 
         const {
@@ -130,36 +133,66 @@ export const WritePostForm = ({ user }: WritePostFormProps) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input
-                type="text"
-                name="text"
-                placeholder="Say something"
-                required
-                maxLength={120}
-                value={formState.value.text}
-                onChange={handleChangeInput}
-            />
-            <input type="file" accept="image/*" onChange={handleChangeFile} />
-            <button type="submit">Post</button>
-            {attachments && attachments.length > 0 && (
-                <div>
-                    {attachments.map((attachment) => {
-                        return (
-                            <div key={attachment.name}>
-                                <img src={attachment.data} width={50} />
-                                <button
-                                    onClick={handleClickRemoveAttachment(
-                                        attachment,
-                                    )}
+        <form onSubmit={handleSubmit} className="w-400">
+            <div className="form-group">
+                <textarea
+                    name="text"
+                    placeholder="Say something"
+                    required
+                    maxLength={120}
+                    value={formState.value.text}
+                    onChange={handleChangeInput}
+                    className="form-control"
+                />
+            </div>
+            <div className="custom-file">
+                <input
+                    id="file"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleChangeFile}
+                />
+                <label htmlFor="file">Choose a file</label>
+
+                {attachments && attachments.length > 0 && (
+                    <div className="row mb-10">
+                        {attachments.map((attachment) => {
+                            return (
+                                <div
+                                    className="col-4"
+                                    key={attachment.name}
+                                    style={{
+                                        position: 'relative',
+                                    }}
                                 >
-                                    Remove
-                                </button>
-                            </div>
-                        );
-                    })}
-                </div>
-            )}
+                                    <img
+                                        src={attachment.data}
+                                        className="img-fluid"
+                                    />
+                                    <button
+                                        className="btn btn-danger"
+                                        style={{
+                                            position: 'absolute',
+                                            bottom: 0,
+                                            right: 0,
+                                        }}
+                                        onClick={handleClickRemoveAttachment(
+                                            attachment,
+                                        )}
+                                    >
+                                        <FaTrash />
+                                        <span className="sr-only">Remove</span>
+                                    </button>
+                                </div>
+                            );
+                        })}
+                    </div>
+                )}
+            </div>
+
+            <button className="btn btn-primary btn-block" type="submit">
+                Post
+            </button>
         </form>
     );
 };
