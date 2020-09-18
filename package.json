@@ -22,7 +22,7 @@
     "bugs": {
         "url": "https://github.com/bbonkr/getting-started-firebase/issues"
     },
-    "homepage": "https://github.com/bbonkr/getting-started-firebase#readme",
+    "homepage": "https://bbon.me/getting-started-firebase",
     "dependencies": {
         "cross-env": "^7.0.2",
         "firebase": "^7.20.0",
