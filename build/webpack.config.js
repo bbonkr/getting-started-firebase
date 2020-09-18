@@ -3,6 +3,7 @@ const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const dotenv = require('dotenv');
 const CopyPlugin = require('copy-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 dotenv.config();
 
@@ -43,6 +44,7 @@ module.exports = {
         ],
     },
     plugins: [
+        isProduction && new CleanWebpackPlugin(),
         new webpack.LoaderOptionsPlugin({ dev: !isProduction }),
         // new webpack.DefinePlugin({
         //     GAID: JSON.stringify(process.env.GAID),
@@ -62,10 +64,10 @@ module.exports = {
                 },
             ],
         }),
-    ],
+    ].filter(Boolean),
     output: {
         filename: '[name].js',
         path: path.join(path.resolve(__dirname, '..'), 'docs', 'dist'),
-        publicPath: '/dist/',
+        publicPath: './dist/',
     },
 };
