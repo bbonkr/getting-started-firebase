@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { App } from '@src/components/App';
 
 ReactDOM.render(
-    <div>
-        <h1>Hello Wolrd!</h1>
-    </div>,
+    <React.StrictMode>
+        <App />
+    </React.StrictMode>,
     document.querySelector('#app'),
 );

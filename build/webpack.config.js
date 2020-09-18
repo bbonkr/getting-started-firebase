@@ -14,6 +14,9 @@ module.exports = {
     mode: isProduction ? 'production' : 'development',
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx'],
+        alias: {
+            '@src': path.join(path.resolve(__dirname, '..'), 'src'),
+        },
     },
     entry: {
         app: path.join(path.resolve(__dirname, '..'), 'src', 'index'),
