@@ -1,20 +1,73 @@
 {
-  "name": "getting-started-firebase",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bbonkr/getting-started-firebase.git"
-  },
-  "keywords": [],
-  "author": "Pon Cheol Ku <dev@bbon.kr> (http://bbon.kr)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/bbonkr/getting-started-firebase/issues"
-  },
-  "homepage": "https://github.com/bbonkr/getting-started-firebase#readme"
+    "name": "getting-started-firebase",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "dev": "webpack-dev-server --config build/webpack.config.dev.js --mode development",
+        "build:dev": "webpack --config build/webpack.config.dev.js",
+        "build:prod": "webpack --config build/webpack.config.js",
+        "build": "cross-env NODE_ENV=production npm run build:prod",
+        "lint": "eslint --ext .ts,.tsx src/ --quiet --fix"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/bbonkr/getting-started-firebase.git"
+    },
+    "keywords": [],
+    "author": "Pon Cheol Ku <dev@bbon.kr> (http://bbon.kr)",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/bbonkr/getting-started-firebase/issues"
+    },
+    "homepage": "https://github.com/bbonkr/getting-started-firebase#readme",
+    "dependencies": {
+        "cross-env": "^7.0.2",
+        "firebase": "^7.20.0",
+        "halfmoon": "^1.1.0",
+        "react": "^16.13.1",
+        "react-dom": "^16.13.1",
+        "react-icons": "^3.11.0",
+        "react-router-dom": "^5.2.0",
+        "uuid": "^8.3.0"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.11.6",
+        "@babel/preset-env": "^7.11.5",
+        "@babel/preset-react": "^7.10.4",
+        "@babel/preset-typescript": "^7.10.4",
+        "@pmmmwh/react-refresh-webpack-plugin": "^0.4.2",
+        "@types/halfmoon": "^1.0.0",
+        "@types/react": "^16.9.49",
+        "@types/react-dom": "^16.9.8",
+        "@types/react-icons": "^3.0.0",
+        "@types/react-router-dom": "^5.1.5",
+        "@types/uuid": "^8.3.0",
+        "@typescript-eslint/eslint-plugin": "^4.1.1",
+        "@typescript-eslint/parser": "^4.1.1",
+        "babel-loader": "^8.1.0",
+        "copy-webpack-plugin": "^6.1.0",
+        "css-loader": "^4.3.0",
+        "dotenv": "^8.2.0",
+        "eslint": "^7.9.0",
+        "eslint-config-airbnb": "^18.2.0",
+        "eslint-config-prettier": "^6.11.0",
+        "eslint-config-standard": "^14.1.1",
+        "eslint-plugin-import": "^2.22.0",
+        "eslint-plugin-node": "^11.1.0",
+        "eslint-plugin-prettier": "^3.1.4",
+        "eslint-plugin-promise": "^4.2.1",
+        "eslint-plugin-react": "^7.20.6",
+        "eslint-plugin-standard": "^4.0.1",
+        "html-webpack-plugin": "^4.4.1",
+        "prettier": "^2.1.2",
+        "react-refresh": "^0.8.3",
+        "style-loader": "^1.2.1",
+        "ts-loader": "^8.0.3",
+        "type-fest": "^0.16.0",
+        "typescript": "^4.0.2",
+        "webpack": "^4.44.1",
+        "webpack-cli": "^3.3.12",
+        "webpack-dev-server": "^3.11.0"
+    }
 }
